@@ -1,5 +1,8 @@
 import passport from "passport";
 import strategy from "passport-github2";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const GitHubStrategy = strategy.Strategy
 passport.serializeUser((user, done) => {
@@ -10,14 +13,14 @@ passport.deserializeUser((user, done) => {
     done(null, user);
 });
 
-
 export default passport.use(new GitHubStrategy({
-    clientID: 'your-github-client-id', // Replace with your GitHub Client ID
-    clientSecret: 'your-github-client-secret', // Replace with your GitHub Client Secret
+    clientID: process.env.CLIENT_ID, // Replace with your GitHub Client ID
+    clientSecret: process.env.CLIENT_SECRET, // Replace with your GitHub Client Secret
     callbackURL: 'http://localhost:3000/auth/github/callback' // Match the callback URL from Step 1
 },
     function (accessToken, refreshToken, profile, done) {
         // This function is called after successful authentication
         // You can save the user profile or perform other actions here
+        // console.log(profile);
         return done(null, profile);
     }));
