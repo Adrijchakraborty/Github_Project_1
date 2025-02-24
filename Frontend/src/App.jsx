@@ -1,40 +1,50 @@
 import React, { useState, useEffect } from "react";
+import Login from "./pages/Login";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import ProtectedRoute from "./protected/ProtectedRoute";
+import useStore from "./zustand/useStore.js";
+import ProtectLogin from "./protected/ProtectLogin.jsx";
+
 
 const App = () => {
-  const [user, setUser] = useState(null);
+  const { user, setUser,setLoading } = useStore();
 
   useEffect(() => {
-    fetch("/auth/user", { credentials: "include" }) // Important: allows session cookies
-      .then((res) => res.json())
-      .then((data) => {
-        if(data?.error) {
-          console.log(data.error)
-          return;
-        }
-        console.log(data)
-        setUser(data)
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    setLoading(true);
+    fetch("/auth/user", { credentials: "include" }) 
+        .then((res) => res.json())
+        .then((data) => {
+            if (data?.error) {
+                console.log(data.error);
+                setLoading(false);
+                return;
+            }
+            console.log(data);
+            setUser(data);
+            setLoading(false);
+        })
+        .catch((err) => {
+            console.log(err);
+            setLoading(false);
+        });
+}, [setUser]);
 
-  // console.log(user)
 
   return (
-    <div>
-      {user ? (
-        <div>
-          <h2>Welcome, {user.displayName || user.username || "User"}</h2>
-          {user.photos?.[0]?.value ? (
-            <img src={user.photos[0].value} alt="Profile" />
-          ) : (
-            <p>No Profile Picture</p>
-          )}
-          <p>Email: {user.emails?.[0]?.value || "Email not available"}</p>
-        </div>
-      ) : (
-        <a href="/auth/github">Login with GitHub</a>
-      )}
-    </div>
+    <Routes>
+      <Route element={<ProtectLogin />}>
+        <Route path='/login' element={<Login />} />
+      </Route>
+
+      <Route element={<ProtectedRoute />}>
+        <Route path='/' element={<Home user={user}/>} />
+      </Route>
+
+
+
+
+    </Routes>
   );
 };
 
