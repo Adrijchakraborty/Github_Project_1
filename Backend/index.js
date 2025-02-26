@@ -4,7 +4,7 @@ import passport from "passport";
 import session from "express-session";
 import "./strategy/github.passport.js"
 
-import authRouter from "./router/auth,router.js"
+import authRouter from "./router/auth.router.js";
 
 const app = express();
 

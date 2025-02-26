@@ -7,6 +7,7 @@ import useStore from "./zustand/useStore.js";
 import ProtectLogin from "./protected/ProtectLogin.jsx";
 
 
+
 const App = () => {
   const { user, setUser,setLoading } = useStore();
 
@@ -29,7 +30,6 @@ const App = () => {
             setLoading(false);
         });
 }, [setUser]);
-
 
   return (
     <Routes>

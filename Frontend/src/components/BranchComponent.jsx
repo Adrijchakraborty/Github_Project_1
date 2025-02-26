@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
+import { MdKeyboardArrowDown } from "react-icons/md";
+
 const BranchComponent = ({ repo, branch, user }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [issues, setIssues] = useState([]);
@@ -10,30 +12,26 @@ const BranchComponent = ({ repo, branch, user }) => {
     setShowDetails(!showDetails);
 
     // Fetch issues
-    fetch(`https://api.github.com/repos/${repo.owner.login}/${repo.name}/issues`, {
-      headers: { Authorization: `Bearer ${user.accessToken}` },
-    })
+    fetch(`https://api.github.com/repos/${repo.owner.login}/${repo.name}/issues`)
       .then((res) => res.json())
       .then((data) => setIssues(data))
       .catch((err) => console.error(err));
 
     // Fetch PRs
-    fetch(`https://api.github.com/repos/${repo.owner.login}/${repo.name}/pulls`, {
-      headers: { Authorization: `Bearer ${user.accessToken}` },
-    })
+    fetch(`https://api.github.com/repos/${repo.owner.login}/${repo.name}/pulls`)
       .then((res) => res.json())
       .then((data) => setPullRequests(data))
       .catch((err) => console.error(err));
   };
-
+  
   return (
     <motion.div className="p-3 bg-gray-700 rounded-lg mb-2">
       <motion.div
-        className="cursor-pointer hover:bg-gray-600 p-2 rounded"
+        className="cursor-pointer hover:bg-gray-600 p-2 rounded flex justify-between items-center"
         onClick={fetchDetails}
-        whileHover={{ scale: 1.05 }}
       >
-        {branch.name}
+        <p>{branch?.name}</p>
+        <MdKeyboardArrowDown/>
       </motion.div>
 
       {showDetails && (
