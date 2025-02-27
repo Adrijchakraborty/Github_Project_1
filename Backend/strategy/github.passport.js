@@ -16,7 +16,7 @@ passport.deserializeUser((user, done) => {
 export default passport.use(new GitHubStrategy({
     clientID: process.env.CLIENT_ID, // Replace with your GitHub Client ID
     clientSecret: process.env.CLIENT_SECRET, // Replace with your GitHub Client Secret
-    callbackURL: 'https://github-project-1-7oim.onrender.com/auth/github/callback' // Match the callback URL from Step 1
+    callbackURL: 'https://github-project-1-frontend.onrender.com/auth/github/callback' // Match the callback URL from Step 1
 },
     function (accessToken, refreshToken, profile, done) {
         // This function is called after successful authentication
