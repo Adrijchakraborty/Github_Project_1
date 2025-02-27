@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     proxy: {
-      '/auth': 'http://localhost:4400'
+      '/auth': 'https://github-project-1-7oim.onrender.com' //https://github-project-1-7oim.onrender.com http://localhost:4400
     },
     port: 3000
   }
