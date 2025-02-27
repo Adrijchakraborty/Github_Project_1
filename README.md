@@ -52,7 +52,6 @@ cd Github_Project_1
    GITHUB_CLIENT_ID=your_github_client_id
    GITHUB_CLIENT_SECRET=your_github_client_secret
    SESSION_SECRET=your_session_secret
-   CALLBACK_URL=http://localhost:5000/auth/github/callback
    ```
 4. Start the backend server:
    ```sh
