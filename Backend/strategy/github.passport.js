@@ -14,13 +14,10 @@ passport.deserializeUser((user, done) => {
 });
 
 export default passport.use(new GitHubStrategy({
-    clientID: process.env.CLIENT_ID, // Replace with your GitHub Client ID
-    clientSecret: process.env.CLIENT_SECRET, // Replace with your GitHub Client Secret
-    callbackURL: 'http://localhost:3000/auth/github/callback' // Match the callback URL from Step 1
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET, 
+    callbackURL: 'http://localhost:3000/auth/github/callback'
 },
     function (accessToken, refreshToken, profile, done) {
-        // This function is called after successful authentication
-        // You can save the user profile or perform other actions here
-        // console.log(profile);
         return done(null, profile);
     }));

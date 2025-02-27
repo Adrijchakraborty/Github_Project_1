@@ -8,7 +8,6 @@ import authRouter from "./router/auth.router.js";
 
 const app = express();
 
-// app.use(cors());
 app.use(express.json());
 dotenv.config();
 
@@ -18,7 +17,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false } // Set to true if using HTTPS
+    cookie: { secure: false }
 }));
 
 app.use(passport.initialize());
