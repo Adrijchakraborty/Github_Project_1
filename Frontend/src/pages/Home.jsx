@@ -58,11 +58,9 @@ const Home = ({ user }) => {
   return (
     <div className="flex h-screen">
       {/* Repository List */}
-      <AnimatePresence>
         {responsive && <motion.div
           initial={{ x: -24, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          exit={{ x: -24, opacity: 0 }}
           className="w-2/3 md:w-1/3 p-4 bg-gray-900 text-white overflow-auto">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold">Your Repositories</h2>
@@ -80,13 +78,13 @@ const Home = ({ user }) => {
           ))}
           <div className="flex justify-between mt-4">
             <button
-              className="bg-blue-500 px-4 py-2 rounded-lg disabled:bg-gray-500"
+              className="bg-blue-500 px-2 md:px-4 py-2 md:py-2 rounded-lg disabled:bg-gray-500"
               onClick={handlePreviousPage}
               disabled={currentPage === 1}
             >
               Previous
             </button>
-            <span className="text-lg">
+            <span className="md:text-lg text-center">
               Page {currentPage} of {totalPages}
             </span>
             <button
@@ -98,11 +96,11 @@ const Home = ({ user }) => {
             </button>
           </div>
         </motion.div>}
-      </AnimatePresence>
 
       {/* Branches Sidebar */}
+      {selectedRepo === null && <Welcome user={user} responsive={responsive} setResponsive={setResponsive} />}
       <AnimatePresence>
-        {selectedRepo ? (
+        {selectedRepo && (
 
           <motion.div
             className="w-full flex-1 md:w-2/3 p-4 bg-gray-800 text-white absolute right-0 h-full overflow-auto"
@@ -121,7 +119,7 @@ const Home = ({ user }) => {
               <BranchComponent key={branch?.name} repo={selectedRepo} branch={branch} user={user} />
             ))}
           </motion.div>
-        ) : <Welcome user={user} responsive={responsive} setResponsive={setResponsive} />}
+        ) }
       </AnimatePresence>
     </div>
   );
